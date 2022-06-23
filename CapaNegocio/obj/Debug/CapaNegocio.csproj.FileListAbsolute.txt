@@ -1,0 +1,11 @@
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\bin\Debug\CapaNegocio.dll
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\bin\Debug\CapaNegocio.pdb
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\bin\Debug\CapaDatos.dll
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\bin\Debug\CapaEntidad.dll
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\bin\Debug\CapaDatos.pdb
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\bin\Debug\CapaEntidad.pdb
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\obj\Debug\CapaNegocio.csproj.AssemblyReference.cache
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\obj\Debug\CapaNegocio.csproj.CoreCompileInputs.cache
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\obj\Debug\CapaNegocio.csproj.CopyComplete
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\obj\Debug\CapaNegocio.dll
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaNegocio\obj\Debug\CapaNegocio.pdb

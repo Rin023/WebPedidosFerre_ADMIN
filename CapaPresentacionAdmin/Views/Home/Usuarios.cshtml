@@ -1,0 +1,354 @@
+﻿
+
+@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*-----------------------------------VISTA USUARRIO---------------------------*@
+
+
+<ol class="breadcrumb mb-4 mt-4">
+    <li class="breadcrumb-item"><a href="index.html">Resumen</a></li>
+    <li class="breadcrumb-item active">Usuarios</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-users me-2 "></i>Lista de Usuarios
+    </div>
+
+    <div class="card-body">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+
+                    <button type="button" class="btn btn-primary justify-content-between" onclick="AbrirModalNuevoUsuario(null)">
+                        <i class="fas fa-plus me-3 "></i>Nuevo Usuario
+                        
+                    </button>
+                </div>
+            </div>
+            <hr />
+            <table id="tablaUsuario" class="display cell-border" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>ID Usuario</th>
+                        <th>Usuario</th>
+                        <th>Contraseña</th>
+                        <th>Tipo</th>
+                        <th></th>
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- Modal  INGRESAR UN NUEVO USUARIO-->
+<div class="modal fade" id="FormModalNuevoUsuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white" >
+                <h5 class="modal-title" id="exampleModalLabel">Usuario</h5>
+            </div>
+            <div class="modal-body" >
+
+                <input id="txtid" type="hidden" value=""/>
+                <input id="txtidPER" type="hidden" value=""/>
+                
+                <div class="row g-2">
+
+                    <div class="col-sm-6 mb-3">
+                        <label class="form-label">Tipo Usuario</label>
+                        <select id="opTipoUser" class="form-select">
+                            <option value="T001      ">ADMIN</option>
+                            <option value="T002      ">USER</option>
+                        </select>
+                    </div>
+                        <div class="col-sm-6 mb-3">
+                            <label id="labelRol" class="form-label">Rol</label>
+                            <select id="opTipoAdmin" class="form-select">
+                                <option value="0">seleccionar</option>
+                                <option value="1">GENERAL</option>
+                                <option value="2">EMPLEADO</option>
+                            </select>
+                        </div>
+                   
+                   <div class="col-sm-6 mb-3">
+                        <label for="txtNombre" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" id="txtNombre" autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6 mb-3">
+                        <label for="txtApellido" class="form-label">Apellido:</label>
+                        <input type="text" class="form-control" id="txtApellido" autocomplete="off"> 
+                    </div>
+
+                    <div class="col-sm-6 mb-3">
+                        <label for="txtDireccion" class="form-label">Direccion:</label>
+                        <input type="text" class="form-control" id="txtDireccion" autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6 mb-3">
+                        <label for="txtTelefono" class="form-label">Telefono:</label>
+                        <input type="text" class="form-control" id="txtTelefono" placeholder="ex: 88888888" autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6 mb-3">
+                        <label for="txtCorreo" class="form-label">correo</label>
+                        <input type="text" class="form-control" id="txtCorreo" placeholder="name@example.com" autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6 mb-3">
+                        <label for="txtNombUser" class="form-label">Nombre de Usuario:</label>
+                        <input type="text" class="form-control" id="txtNombUser" autocomplete="off">
+                    </div>
+
+                    <div class="col-sm-6 mb-3">
+                        <label for="txtContraseña" class="form-label">Contraseña:</label>
+                        <input type="text" class="form-control" id="txtContraseña" autocomplete="off">
+                    </div>
+
+                </div>
+@*--------------------------MODAL DANGER*@
+                <div class="row mt-4">
+                    <div class="col-12">
+
+                        <div id="mensajeError" class="alert alert-danger" role="alert">
+                            This is a danger alert—check it out!
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="GuardarUser()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    @*TABLA DE USUARIO*@
+
+<script>
+
+
+    var tabladata;
+    var filaseleccionada;
+
+
+      
+        tabladata = $("#tablaUsuario").DataTable({
+            rresponsive: true,
+            ordering: false,
+            "ajax": {
+                url: '@Url.Action("ListarUsuarios","Home")',
+                type: "GET",
+                datType: "json",
+
+            },
+
+            "columns": [
+                { "data": "Ousuario.id_usuario" },
+                { "data": "Ousuario.usuario" },
+                { "data": "Ousuario.contraseña" },
+                {
+                    "data": "Opersona.ObTipoPersona", "render": function (valor) {
+
+                        if (valor.id_tipo == "T001      ") {
+
+                            return '<span class="form-label">ADMIN</span>'
+                        } else {
+                            return '<span class="form-label">USER</span>'
+                        }
+                    }
+                },
+
+                {
+                    "defaultContent": '<button type="button" class="btn btn-outline-primary btn-sm btn-editar"><i class="fas fa-pen"></i></button>',
+                    "orderable": false,
+                    "searchable": false,
+                    "width": "30px"
+                }
+
+            ],
+
+            "language": {
+                "url": "https://cdn.datatables.net/plug-ins/1.12.1/i18n/es-ES.json"
+            }  @*Cabiar lenguaje a español*@
+
+        });
+
+
+    function AbrirModalNuevoUsuario(json) {
+
+            $("#txtid").val(" ");
+            $("#txtidPER").val(" ");
+            $("#opTipoUser").val("");
+            $("#opTipoAdmin").val($("#opTipoAdmin option:first").val());
+            $("#txtNombre").val("");
+            $("#txtApellido").val("");
+            $("#txtDireccion").val("");
+            $("#txtTelefono").val("");
+            $("#txtCorreo").val("");
+            $("#txtNombUser").val("");
+            $("#txtContraseña").val("");
+
+        $("#mensajeError").hide();
+        $("#opTipoAdmin").hide();
+        $("#labelRol").hide();
+
+           if (json != null) {
+                $("#txtid").val(json.Ousuario.id_usuario);
+                $("#txtidPER").val(json.Opersona.id_persona);
+                $("#opTipoUser").val(json.Opersona.ObTipoPersona.id_tipo);
+                $("#opTipoAdmin").val(json.IdRol);
+                $("#txtNombre").val(json.Opersona.Nombre);
+                $("#txtApellido").val(json.Opersona.Apellido);
+                $("#txtDireccion").val(json.Opersona.Direccion);
+                $("#txtTelefono").val(json.Opersona.Telefono);
+                $("#txtCorreo").val(json.Opersona.correo);
+                $("#txtNombUser").val(json.Ousuario.usuario);
+               $("#txtContraseña").val(json.Ousuario.contraseña);
+
+                   if ($("#opTipoUser").val() != "T001      ") {
+
+                       $("#opTipoAdmin").hide();
+                       $("#labelRol").hide();
+
+                   } else {
+                       $("#opTipoAdmin").show();
+                       $("#labelRol").show();
+                   }
+
+            } else {
+
+               $("#opTipoUser").prop("disabled", false);
+
+           }
+
+        $("#FormModalNuevoUsuario").modal("show");
+
+        $("#opTipoUser").change(function () {
+
+            if ($("#opTipoUser").val() != "T001      ") {
+
+                $("#opTipoAdmin").hide();
+                $("#labelRol").hide();
+
+            } else {
+                $("#opTipoAdmin").show();
+                $("#labelRol").show();
+            }
+        });
+
+    }
+
+     //click editar
+        $('#tablaUsuario tbody').on("click", '.btn-editar', function () {
+
+            filaseleccionada = $(this).closest("tr");
+            var data = tabladata.row(filaseleccionada).data();
+            console.log(data);
+
+            $("#opTipoUser").prop('disabled', 'disabled');
+
+            AbrirModalNuevoUsuario(data)
+        })
+
+    function GuardarUser() {
+
+            var usuario = {
+
+                Ousuario: {
+                    id_usuario: $("#txtid").val(),
+                    usuario: $("#txtNombUser").val(),
+                    contraseña: $("#txtContraseña").val()
+                },
+
+                Opersona: {
+
+                    id_persona: $("#txtidPER").val(),
+                    Nombre: $("#txtNombre").val(),
+                    Apellido: $("#txtApellido").val(),
+                    Direccion: $("#txtDireccion").val(),
+                    Telefono: $("#txtTelefono").val(),
+                    correo: $("#txtCorreo").val(),
+
+                    ObTipoPersona: {
+                        id_tipo: $("#opTipoUser option:selected").val(),
+                        tipo: $("#opTipoUser").val() == "T001      "?"T001      ":"T002      ",
+                    }
+                },
+
+                IdRol: $("#opTipoAdmin option:selected").val()
+
+            }
+
+            jQuery.ajax({
+                url: '@Url.Action("GuardarUsuario", "Home")',
+                type: "POST",
+                data: JSON.stringify({objeto: usuario}),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                  // debugger;
+                    $(".modal-body").LoadingOverlay("hide");
+                    //USUARIO NUEVO
+                    if (usuario.Ousuario.id_usuario == " ") {
+
+                        if (data.resultado != "0") {
+
+                            usuario.Ousuario.id_usuario = data.resultado;
+                            tabladata.row.add(usuario).draw(false);
+                            $("#FormModalNuevoUsuario").modal("hide");
+
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+
+                    } else {
+
+                       //editar
+                        if (data.resEditar) {
+
+                            tabladata.row(filaseleccionada).data(usuario).draw(false);
+                            filaseleccionada = null;
+                            $("#FormModalNuevoUsuario").modal("hide");
+
+                        } else {
+                            $("#mensajeError").text(data.mensaje);
+                            $("#mensajeError").show();
+                        }
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                },
+                beforeSend: function () {
+                    $(".modal-body").LoadingOverlay("show", {
+                        imageResizeFactor: 2,
+                        Text: "Cargando...",
+                        size: 14
+                    })
+                }
+
+            });
+
+    }
+
+
+</script>
+}

@@ -1,0 +1,6 @@
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaEntidad\bin\Debug\CapaEntidad.dll
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaEntidad\bin\Debug\CapaEntidad.pdb
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaEntidad\obj\Debug\CapaEntidad.dll
+C:\Users\E5450\source\repos\WebPedidosFerre_ADMIN\CapaEntidad\obj\Debug\CapaEntidad.pdb
